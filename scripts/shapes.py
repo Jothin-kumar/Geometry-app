@@ -106,7 +106,7 @@ class Line:
 
     def highlight(self):
         self.hide()
-        self.line = self.create_line_command(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill='red')
+        self.line = self.create_line_command(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill='blue')
         self.displayed = True
 
     def un_highlight(self):
