@@ -80,7 +80,7 @@ class ShapePane:
         self.listbox.bind('<<ListboxSelect>>', select_command)
 
 
-split_frame.add(shape_pane)
+split_frame.add(shape_pane, minsize=250)
 
 diagram_editor_frame = Frame(split_frame)
 diagram_editor = Canvas(
@@ -181,7 +181,7 @@ class LinePropertyPane:
         self.mainframe.pack_forget()
 
 
-split_frame.add(property_panel)
+split_frame.add(property_panel, minsize=150)
 
 split_frame.pack(fill=BOTH)
 mainframe.pack(fill=BOTH)
