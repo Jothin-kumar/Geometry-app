@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter.simpledialog import askstring
 from tkinter.messagebox import showerror
-from shapes import Point, Line, delete_point, delete_line, points
+from shapes import Point, Line, delete_point, delete_line, points, lines, refresh_line
 
 root = Tk()
 mainframe = Frame(master=root)
@@ -132,7 +132,7 @@ property_panel = Frame(master=split_frame)
 
 
 class PointPropertyPane:
-    def __init__(self, point: Point, refresh_command):
+    def __init__(self, point: Point, refresh_command, point_modify_command):
         self.mainframe = Frame(master=property_panel)
         name_label = Label(master=self.mainframe, text=f'Point: {point.name}')
         name_label.pack()
@@ -154,6 +154,9 @@ class PointPropertyPane:
             refresh_command()
             self.delete()
 
+        change_point_location_button = Button(master=self.mainframe, text="change point location",
+                                              command=point_modify_command)
+        change_point_location_button.pack()
         delete_button = Button(master=self.mainframe, text='Delete point', bg='red', fg='snow', command=delete_point_)
         delete_button.pack()
         self.mainframe.pack(side=TOP, anchor=E, expand=False)

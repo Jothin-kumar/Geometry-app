@@ -42,6 +42,12 @@ class Point:
             self.text = self.create_text_command(self.x, self.y, text=self.name)
             self.displayed = True
 
+    def set_coordinates(self, x: int, y: int):
+        self.x = x
+        self.y = y
+        self.hide()
+        self.show()
+
     def rename(self, new_name: str, refresh_command):
         if not new_name == self.name:
             for point_ in points:
@@ -83,8 +89,6 @@ class Line:
             self.line = create_line_command(point1.x, point1.y, point2.x, point2.y)
         self.displayed = show
         self.delete_command = delete_command
-        difference_between_x = point1.x - point2.x
-        difference_between_y = point1.y - point2.y
 
     def hide(self):
         if self.displayed:

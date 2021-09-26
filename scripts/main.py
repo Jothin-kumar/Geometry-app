@@ -2,12 +2,18 @@ import GUI
 import shapes
 
 current_shape = 'point'  # Current shape to edit. Ex: Point, Line
+point_modify_mode = False
 previous_click_point = None  # Previously clicked coordinates as shapes.Point object. Defined as None for now
 
 
 def switch_to_point_edit():  # Switch to point edit.
     global current_shape
     current_shape = 'point'
+
+
+def set_point_modify_mode():
+    global point_modify_mode
+    point_modify_mode = True
 
 
 def switch_to_line_edit():  # Switch to Line edit.
@@ -48,7 +54,8 @@ def on_point_pane_element_switch(string: str):
     point = shapes.get_point_by_name(string)  # Get point object from it's name.
     if point:
         point.highlight()  # Highlight the point.
-    previous_point_property = GUI.PointPropertyPane(point, refresh_all)  # When called next time, this is previous.
+    previous_point_property = GUI.PointPropertyPane(point, refresh_all, point_modify_command=set_point_modify_mode)
+    # When called next time, this is previous.
     previous_highlighted_point = point  # When called next time, this point is the previously highlighted one.
 
 
@@ -76,11 +83,22 @@ def on_diagram_editor_click(event):  # When user clicks on the diagram editor.
     if current_shape == 'point':  # If current shape is Point, Just create a new point where clicked.
         global previous_point_property
         global previous_highlighted_point
-        try:  # Try to create a Point.
-            shapes.point(x, y, GUI.create_text, GUI.delete)  # Create a point.
-            points_pane.set_texts(shapes.points)  # Refresh panel.
-        except ValueError:  # In case it already exists, do nothing.
-            pass
+        global point_modify_mode
+        if point_modify_mode:
+            previous_highlighted_point.set_coordinates(x, y)
+            point_modify_mode = False
+            for line in shapes.lines:
+                if line.point1.x == previous_highlighted_point.x and line.point1.y == previous_highlighted_point.y:
+                    line.point1 = shapes.get_point_by_coordinates(x, y)
+                elif line.point2.x == previous_highlighted_point.x and line.point2.y == previous_highlighted_point.y:
+                    line.point2 = shapes.get_point_by_coordinates(x, y)
+                shapes.refresh_line(line)
+        else:
+            try:  # Try to create a Point.
+                shapes.point(x, y, GUI.create_text, GUI.delete)  # Create a point.
+                points_pane.set_texts(shapes.points)  # Refresh panel.
+            except ValueError:  # In case it already exists, do nothing.
+                pass
         if previous_highlighted_point:  # If previous highlighted point is not None.
             previous_highlighted_point.un_highlight()  # Un-Highlight.
         if previous_point_property:  # If previous point property is not None.
@@ -88,7 +106,8 @@ def on_diagram_editor_click(event):  # When user clicks on the diagram editor.
         point = shapes.get_point_by_coordinates(x, y)  # Get point object from it's coordinates.
         if point:
             point.highlight()  # Highlight the point.
-        previous_point_property = GUI.PointPropertyPane(point, refresh_all)  # When called next time, this is previous.
+        previous_point_property = GUI.PointPropertyPane(point, refresh_all, point_modify_command=set_point_modify_mode)
+        # When called next time, this is previous.
         previous_highlighted_point = point  # When called next time, this point is the previously highlighted one.
     elif current_shape == 'line':  # If current shape is line, Draw line from previous clicked coordinate to here.
         global previous_click_point
