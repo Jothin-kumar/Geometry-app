@@ -184,7 +184,7 @@ class LinePropertyPane:
         self.mainframe.pack_forget()
 
 
-split_frame.add(property_panel, minsize=150)
+split_frame.add(property_panel, minsize=200)
 
 split_frame.pack(fill=BOTH)
 mainframe.pack(fill=BOTH)
