@@ -122,9 +122,17 @@ class Angle:
             if angle.lines == [line1, line2] or angle.lines == [line2, line1]:
                 raise ValueError('Angle already exists')
         self.lines = [line1, line2]
-        self.name = ''
+        self.vertex = None
+        for point1 in line1.points:
+            for point2 in line2.points:
+                if point1 == point2:
+                    self.vertex = point1
+        self.points = []
         for line in self.lines:
-            self.name += line.name
+            for point in line.points:
+                if not point in self.points and point != self.vertex:
+                    self.points.append(point)
+        self.name = f'{self.points[0].name}{self.vertex.name}{self.points[1].name}'
     
     def highlight(self):
         for line in self.lines:
