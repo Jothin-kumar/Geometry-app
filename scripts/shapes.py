@@ -1,4 +1,5 @@
 from itertools import cycle
+from tkinter.constants import S
 
 variable_letters = iter(cycle(['A', 'B', 'C', 'X', 'Y', 'Z']))
 variable_num = 1
@@ -104,9 +105,9 @@ class Line:
     def refresh(self):
         self.__init__(self.point1, self.point2, self.create_line_command, self.delete_command, self.displayed)
 
-    def highlight(self):
+    def highlight(self, fill: str = 'blue'):
         self.hide()
-        self.line = self.create_line_command(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill='blue')
+        self.line = self.create_line_command(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill=fill)
         self.displayed = True
 
     def un_highlight(self):
@@ -121,6 +122,17 @@ class Angle:
             if angle.lines == [line1, line2] or angle.lines == [line2, line1]:
                 raise ValueError('Angle already exists')
         self.lines = [line1, line2]
+        self.name = ''
+        for line in self.lines:
+            self.name += line.name
+    
+    def highlight(self):
+        for line in self.lines:
+            line.highlight(fill='orange')
+    
+    def unhighlight(self):
+        for line in lines:
+            line.un_highlight()
 
 
 def angle(line1: Line, line2: Line):
@@ -193,3 +205,9 @@ def get_line_by_name(name: str):
     for line_ in lines:
         if line_.name == name:
             return line_
+
+
+def get_angle_by_name(name: str):
+    for angle_ in angles:
+        if angle_.name == name:
+            return angle_

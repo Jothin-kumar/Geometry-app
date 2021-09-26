@@ -38,10 +38,12 @@ def refresh_all():  # Command to refresh side panel.
 
 points_pane = GUI.ShapePane(shape_name='Points', switch_to_this_shape_command=switch_to_point_edit)  # The points panel.
 lines_pane = GUI.ShapePane(shape_name='Lines', switch_to_this_shape_command=switch_to_line_edit)  # The lines panel.
+angle_pane = GUI.ShapePane(shape_name='Angles', switch_to_this_shape_command=lambda: None)
 previous_highlighted_point = None  # Variable to store previous highlighted point.
 previous_highlighted_line = None  # Variable to store previous highlighted line.
 previous_point_property = None  # Variable to store previous point shown in property panel.
 previous_line_property = None  # Variable to store previous line shown in property panel.
+previous_highlighted_angle = None
 
 
 def on_point_pane_element_switch(string: str):
@@ -73,8 +75,19 @@ def on_line_pane_element_switch(string: str):
     previous_highlighted_line = line  # When called next time, this line is the previously highlighted one.
 
 
+def on_angle_pane_element_switch(string: str):
+    global previous_highlighted_angle
+    if previous_highlighted_angle:
+        previous_highlighted_angle.unhighlight()
+    angle = shapes.get_angle_by_name(string)
+    if angle:
+        angle.highlight()
+    previous_highlighted_angle = angle
+
+
 points_pane.on_listbox_element_switch(on_point_pane_element_switch)
 lines_pane.on_listbox_element_switch(on_line_pane_element_switch)
+angle_pane.on_listbox_element_switch(on_angle_pane_element_switch)
 
 
 def on_diagram_editor_click(event):  # When user clicks on the diagram editor.
@@ -117,6 +130,7 @@ def on_diagram_editor_click(event):  # When user clicks on the diagram editor.
             try:  # Try to create a line.
                 shapes.line(previous_click_point, current_click_point, GUI.create_line, GUI.delete)  # Create a line.
                 lines_pane.set_texts(shapes.lines)  # Refresh panel.
+                angle_pane.set_texts(shapes.angles)
             except ValueError:  # In case it already exists, do nothing.
                 pass
         previous_click_point = current_click_point
