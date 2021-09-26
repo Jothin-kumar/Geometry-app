@@ -14,6 +14,7 @@ def get_variable_letter():
 
 points = []
 lines = []
+angles = []
 
 
 class Point:
@@ -114,6 +115,31 @@ class Line:
             self.show()
 
 
+class Angle:
+    def __init__(self, line1: Line, line2: Line):
+        for angle in angles:
+            if angle.lines == [line1, line2] or angle.lines == [line2, line1]:
+                raise ValueError('Angle already exists')
+        self.lines = [line1, line2]
+
+
+def angle(line1: Line, line2: Line):
+    angle_ = Angle(line1, line2)
+    angles.append(angle_)
+    return angle_
+
+
+def refresh_angles():
+    for line1 in lines:
+        for line2 in lines:
+            if not line1 == line2:
+                if line1.point1 == line2.point1 or line1.point1 == line2.point2 or line1.point2 == line2.point1 or line1.point2 == line2.point2:
+                    try:
+                        angle(line1, line2)
+                    except ValueError:
+                        pass
+
+
 def point(x: int, y: int, create_text_command, delete_command, show_point: bool = True):
     point_ = Point(x, y, create_text_command, delete_command, show_point)
     points.append(point_)
@@ -130,6 +156,7 @@ def delete_point(point_: Point):
 def line(point1: Point, point2: Point, create_line_command, delete_command, show: bool = True):
     line_ = Line(point1, point2, create_line_command, delete_command, show)
     lines.append(line_)
+    refresh_angles()
     return line_
 
 
