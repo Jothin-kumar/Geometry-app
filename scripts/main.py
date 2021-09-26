@@ -124,4 +124,3 @@ def on_diagram_editor_click(event):  # When user clicks on the diagram editor.
 
 GUI.on_diagram_viewer_click(on_diagram_editor_click)
 GUI.mainloop()
-''
