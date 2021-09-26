@@ -105,5 +105,3 @@ def on_diagram_editor_click(event):  # When user clicks on the diagram editor.
 
 GUI.on_diagram_viewer_click(on_diagram_editor_click)
 GUI.mainloop()
-for line in shapes.lines:
-    print(line.name, line.point1.x + 25, line.point1.y + 25, line.point2.x + 25, line.point2.y + 25)
