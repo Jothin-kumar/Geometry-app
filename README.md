@@ -5,5 +5,5 @@ To use this application,
  - download the zip file
  - extract it
  - navigate to scripts folder
- - run the main.py file__
+ - run the main.py file  
 [contribute to Geometry app](https://github.com/Jothin-kumar/Geometry-app/blob/master/CONTRIBUTING.md)
