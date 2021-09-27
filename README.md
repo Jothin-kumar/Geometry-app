@@ -6,4 +6,4 @@ To use this application,
  - extract it
  - navigate to scripts folder
  - run the main.py file  
-**[contribute to Geometry app](https://github.com/Jothin-kumar/Geometry-app/blob/master/CONTRIBUTING.md)**
+[contribute to Geometry app](https://github.com/Jothin-kumar/Geometry-app/blob/master/CONTRIBUTING.md)
