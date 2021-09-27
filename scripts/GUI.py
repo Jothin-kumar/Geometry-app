@@ -4,6 +4,7 @@ from tkinter.messagebox import showerror
 from shapes import Point, Line, delete_point, delete_line, points, lines, refresh_line
 
 root = Tk()
+root.wm_title('Geometry app')
 mainframe = Frame(master=root)
 menu_bar = Frame(master=mainframe)
 
