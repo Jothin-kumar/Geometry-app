@@ -34,6 +34,14 @@ variable_view_button = Checkbutton(master=menu_bar, text='Show variable names', 
                                    command=variable_view_button_command)
 variable_view_button.pack(side=TOP, anchor=W, expand=False)
 menu_bar.pack(side=TOP, anchor=W, fill=Y)
+current_mode_label = Label(master=menu_bar, text='Point')
+current_mode_label.pack(side=TOP, anchor=W)
+
+
+def set_current_mode(new_mode: str):
+    current_mode_label['text'] = new_mode
+
+
 split_frame = PanedWindow(master=mainframe)
 
 shape_pane = Frame(master=split_frame)
@@ -42,6 +50,7 @@ shape_pane = Frame(master=split_frame)
 class ShapePane:
     def __init__(self, shape_name: str, switch_to_this_shape_command):
         self.mainframe = Frame(master=shape_pane)
+        self.shape_name = shape_name.lower().replace('s', '')
         self.button = Button(master=self.mainframe, text=shape_name, command=switch_to_this_shape_command)
         self.button.pack(side=TOP, fill=X)
         self.listbox = Listbox(master=self.mainframe)
@@ -51,6 +60,7 @@ class ShapePane:
         self.listbox.config(yscrollcommand=self.scrollbar.set)
         self.scrollbar.config(command=self.listbox.yview)
         self.mainframe.pack(side=TOP, expand=False, anchor=W)
+        self.switch_to_this_shape_command = switch_to_this_shape_command
 
     def empty(self):
         self.listbox.delete(0, END)
@@ -63,14 +73,15 @@ class ShapePane:
         for shape in shapes:
             self.append(shape.name)
 
-    def on_listbox_element_switch(self, command):
+    def on_listbox_element_switch(self, get_current_shape, command):
         def get_element(event):
             curselection = event.widget.curselection()
             if curselection:
                 curselection = int(curselection[0])
             else:
                 curselection = 0
-            command(event.widget.get(curselection))
+            if get_current_shape() == self.shape_name:
+                command(event.widget.get(curselection))
 
         def select_command(event):
             if not variable_view.get():

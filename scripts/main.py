@@ -9,6 +9,7 @@ previous_click_point = None  # Previously clicked coordinates as shapes.Point ob
 def switch_to_point_edit():  # Switch to point edit.
     global current_shape
     current_shape = 'point'
+    GUI.set_current_mode('Point')
 
 
 def set_point_modify_mode():
@@ -21,6 +22,17 @@ def switch_to_line_edit():  # Switch to Line edit.
     global current_shape
     current_shape = 'line'
     previous_click_point = None  # Empty previous click point to start a new shape.
+    GUI.set_current_mode('Line')
+    for angle in shapes.angles:
+        angle.unhighlight()
+
+
+def switch_to_angle_mode():
+    global current_shape
+    current_shape = 'angle'
+    GUI.set_current_mode('Angle')
+    for line in shapes.lines:
+        line.un_highlight()
 
 
 def refresh_points_panel():  # Command to refresh points.
@@ -38,7 +50,7 @@ def refresh_all():  # Command to refresh side panel.
 
 points_pane = GUI.ShapePane(shape_name='Points', switch_to_this_shape_command=switch_to_point_edit)  # The points panel.
 lines_pane = GUI.ShapePane(shape_name='Lines', switch_to_this_shape_command=switch_to_line_edit)  # The lines panel.
-angle_pane = GUI.ShapePane(shape_name='Angles', switch_to_this_shape_command=lambda: None)
+angle_pane = GUI.ShapePane(shape_name='Angles', switch_to_this_shape_command=switch_to_angle_mode)
 previous_highlighted_point = None  # Variable to store previous highlighted point.
 previous_highlighted_line = None  # Variable to store previous highlighted line.
 previous_point_property = None  # Variable to store previous point shown in property panel.
@@ -85,9 +97,13 @@ def on_angle_pane_element_switch(string: str):
     previous_highlighted_angle = angle
 
 
-points_pane.on_listbox_element_switch(on_point_pane_element_switch)
-lines_pane.on_listbox_element_switch(on_line_pane_element_switch)
-angle_pane.on_listbox_element_switch(on_angle_pane_element_switch)
+def get_current_shape():
+    return current_shape
+
+
+points_pane.on_listbox_element_switch(get_current_shape, on_point_pane_element_switch)
+lines_pane.on_listbox_element_switch(get_current_shape, on_line_pane_element_switch)
+angle_pane.on_listbox_element_switch(get_current_shape, on_angle_pane_element_switch)
 
 
 def on_diagram_editor_click(event):  # When user clicks on the diagram editor.
