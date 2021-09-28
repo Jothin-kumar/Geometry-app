@@ -105,9 +105,14 @@ class Line:
     def refresh(self):
         self.__init__(self.point1, self.point2, self.create_line_command, self.delete_command, self.displayed)
 
-    def highlight(self, fill: str = 'blue'):
+    def highlight(self, unhighlighted_others=False):
+        if not unhighlighted_others:
+            for angle_ in angles:
+                angle_.unhighlight()
+            for line_ in lines:
+                line_.un_highlight()
         self.hide()
-        self.line = self.create_line_command(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill=fill)
+        self.line = self.create_line_command(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill='blue')
         self.displayed = True
 
     def un_highlight(self):
@@ -135,8 +140,12 @@ class Angle:
         self.name = f'{self.points[0].name}{self.vertex.name}{self.points[1].name}'
     
     def highlight(self):
+        for angle_ in angles:
+            angle_.unhighlight()
+        for line_ in lines:
+            line_.un_highlight()
         for line in self.lines:
-            line.highlight(fill='orange')
+            line.highlight(unhighlighted_others=True)
     
     def unhighlight(self):
         for line in lines:
