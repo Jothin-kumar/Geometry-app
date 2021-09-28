@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter.simpledialog import askstring
 from tkinter.messagebox import showerror
-from shapes import Point, Line, delete_point, delete_line, points, lines, refresh_line
+from shapes import Point, Line, delete_point, delete_line, points, lines, angles
 
 root = Tk()
 root.wm_title('Geometry app')
@@ -100,11 +100,20 @@ diagram_editor = Canvas(
     bg='white',
     width=20000,
     height=20000,
-    scrollregion=(0, 0, 20000, 20000)
+    scrollregion=(0, 0, 2050, 2050)
 )
-for x in range(0, 401):
-    for y in range(0, 401):
-        diagram_editor.create_rectangle(x * 50, y * 50, 50 + (x * 50), 50 + (y * 50), outline='lightgreen')
+def refresh_diagram_editor():
+    diagram_editor.delete('all')
+    for point in points:
+        point.displayed = False
+        point.show()
+    for line in lines:
+        line.displayed = FALSE
+        line.show()
+    for x in range(0, 41):
+        for y in range(0, 41):
+            diagram_editor.create_rectangle(x * 50, y * 50, 50 + (x * 50), 50 + (y * 50), outline='lightgreen')
+refresh_diagram_editor()
 horizontal_scroll_bar_diagram_editor = Scrollbar(master=diagram_editor_frame, orient=HORIZONTAL)
 horizontal_scroll_bar_diagram_editor.pack(side=BOTTOM, fill=X)
 horizontal_scroll_bar_diagram_editor.config(command=diagram_editor.xview)

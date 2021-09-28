@@ -1,5 +1,4 @@
 from itertools import cycle
-from tkinter.constants import S
 
 variable_letters = iter(cycle(['A', 'B', 'C', 'X', 'Y', 'Z']))
 variable_num = 1
@@ -159,6 +158,8 @@ def angle(line1: Line, line2: Line):
 
 
 def refresh_angles():
+    global angles
+    angles = []
     for line1 in lines:
         for line2 in lines:
             if not line1 == line2:
@@ -194,6 +195,7 @@ def delete_line(line_: Line):
     line_.point2 = None
     line_.hide()
     del lines[lines.index(line_)]
+    refresh_angles()
 
 
 def refresh_line(line_: Line):
