@@ -6,6 +6,7 @@ Do you think Geometry app would be better if a feature is added? Send a [feature
 **Code contribution**  
 Would you like to contribute a piece of code? Sure! you are greatly appreciated! Create a [pull request](https://github.com/Jothin-kumar/Geometry-app/pulls) now! make sure that:
  - It is related to Geometry.
+ - Your code does'nt have any bugs or errors.
  - You follow the PEP8 standards!  
 
 **By contributing to [Geometry app](https://github.com/Jothin-kumar/Geometry-app) you agree that, your contribution will be covered under the same [MIT License](https://github.com/Jothin-kumar/Geometry-app/blob/master/LICENSE)**
