@@ -53,7 +53,7 @@ def refresh_all():  # Command to refresh side panel.
     refresh_lines_panel()
     refresh_angles_panel()
     GUI.refresh_diagram_editor()
-    mathematics.refresh_collinear_points()
+    mathematics.refresh_all()
 
 
 points_pane = GUI.ShapePane(shape_name='Points', switch_to_this_shape_command=switch_to_point_edit)  # The points panel.
