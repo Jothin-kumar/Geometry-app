@@ -1,5 +1,6 @@
 import GUI
 import shapes
+import mathematics
 
 current_shape = 'point'  # Current shape to edit. Ex: Point, Line
 point_modify_mode = False
@@ -52,6 +53,7 @@ def refresh_all():  # Command to refresh side panel.
     refresh_lines_panel()
     refresh_angles_panel()
     GUI.refresh_diagram_editor()
+    mathematics.refresh_collinear_points()
 
 
 points_pane = GUI.ShapePane(shape_name='Points', switch_to_this_shape_command=switch_to_point_edit)  # The points panel.
@@ -151,10 +153,10 @@ def on_diagram_editor_click(event):  # When user clicks on the diagram editor.
             # If the Point 'previous_click_point' and 'current_click_point' exists.
             try:  # Try to create a line.
                 shapes.line(previous_click_point, current_click_point, GUI.create_line, GUI.delete)  # Create a line.
-                refresh_all()
             except ValueError:  # In case it already exists, do nothing.
                 pass
         previous_click_point = current_click_point
+    refresh_all()
 
 
 GUI.on_diagram_viewer_click(on_diagram_editor_click)
