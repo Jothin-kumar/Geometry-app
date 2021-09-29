@@ -48,17 +48,44 @@ def refresh_angles_panel():
     angle_pane.set_texts(shapes.angles)
 
 
+def refresh_collinear_points_panel():
+    append_list = []
+    for points in mathematics.collinear_points_list:
+        append_value = ''
+        for point in points:
+            append_value += point.name
+            append_value += ' '
+        append_list.append(append_value)
+    colliner_points_pane.set_texts(append_list)
+
+
+def refresh_parallel_lines_panel():
+    append_list = []
+    for lines in mathematics.parallel_lines_list:
+        append_value = ''
+        for line in lines:
+            append_value += line.name
+            append_value += ' '
+        if len(lines) > 1:
+            append_list.append(append_value)
+    parallel_lines_pane.set_texts(append_list)
+
+
 def refresh_all():  # Command to refresh side panel.
     refresh_points_panel()
     refresh_lines_panel()
     refresh_angles_panel()
-    GUI.refresh_diagram_editor()
     mathematics.refresh_all()
+    refresh_collinear_points_panel()
+    refresh_parallel_lines_panel()
+    GUI.refresh_diagram_editor()
 
 
 points_pane = GUI.ShapePane(shape_name='Points', switch_to_this_shape_command=switch_to_point_edit)  # The points panel.
 lines_pane = GUI.ShapePane(shape_name='Lines', switch_to_this_shape_command=switch_to_line_edit)  # The lines panel.
 angle_pane = GUI.ShapePane(shape_name='Angles', switch_to_this_shape_command=switch_to_angle_mode)
+colliner_points_pane = GUI.ShapePropertyPane('Collinear points')
+parallel_lines_pane = GUI.ShapePropertyPane('Parallel lines')
 previous_highlighted_point = None  # Variable to store previous highlighted point.
 previous_highlighted_line = None  # Variable to store previous highlighted line.
 previous_point_property = None  # Variable to store previous point shown in property panel.

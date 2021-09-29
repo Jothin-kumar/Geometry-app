@@ -71,7 +71,9 @@ def refresh_parallel_lines():
             ])
         ]) and all([
             line1.point1 != line2.point1,
-            line1.point2 != line2.point2
+            line1.point2 != line2.point2,
+            line1.point1 != line2.point2,
+            line1.point2 != line2.point1
         ])
     for line in lines:
         line_exists_in_a_parallel_line_group = False

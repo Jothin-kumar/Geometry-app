@@ -206,7 +206,35 @@ class LinePropertyPane:
 
 
 split_frame.add(property_panel, minsize=200)
+shape_property_pane = Frame(master=mainframe)
 
-split_frame.pack(fill=BOTH)
+
+class ShapePropertyPane:
+    def __init__(self, property_name: str):
+        self.mainframe = Frame(master=shape_property_pane)
+        Label(master=shape_property_pane, text=property_name).pack(side=TOP, fill=X)
+        self.listbox = Listbox(master=self.mainframe)
+        self.scrollbar = Scrollbar(master=self.mainframe)
+        self.listbox.pack(side=LEFT)
+        self.scrollbar.pack(side=RIGHT, fill=Y)
+        self.listbox.config(yscrollcommand=self.scrollbar.set)
+        self.scrollbar.config(command=self.listbox.yview)
+        self.mainframe.pack(side=LEFT, expand=False, anchor=W)
+    
+    def empty(self):
+        self.listbox.delete(0, END)
+
+    def append(self, string: str):
+        self.listbox.insert(END, string)
+
+    def set_texts(self, properties: list):
+        self.empty()
+        for property in properties:
+            self.append(property)
+
+
+shape_property_pane.pack(fill=Y)
+split_frame.pack(fill=Y)
+
 mainframe.pack(fill=BOTH)
 mainloop = root.mainloop
