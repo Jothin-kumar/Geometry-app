@@ -1,3 +1,4 @@
+from tkinter.constants import NO
 import GUI
 import shapes
 import mathematics
@@ -84,8 +85,8 @@ def refresh_all():  # Command to refresh side panel.
 points_pane = GUI.ShapePane(shape_name='Points', switch_to_this_shape_command=switch_to_point_edit)  # The points panel.
 lines_pane = GUI.ShapePane(shape_name='Lines', switch_to_this_shape_command=switch_to_line_edit)  # The lines panel.
 angle_pane = GUI.ShapePane(shape_name='Angles', switch_to_this_shape_command=switch_to_angle_mode)
-colliner_points_pane = GUI.ShapePropertyPane('Collinear points')
-parallel_lines_pane = GUI.ShapePropertyPane('Parallel lines')
+colliner_points_pane = GUI.ShapePane('Collinear points', switch_to_this_shape_command=lambda: None)
+parallel_lines_pane = GUI.ShapePane('Parallel lines', switch_to_this_shape_command=lambda: None)
 previous_highlighted_point = None  # Variable to store previous highlighted point.
 previous_highlighted_line = None  # Variable to store previous highlighted line.
 previous_point_property = None  # Variable to store previous point shown in property panel.

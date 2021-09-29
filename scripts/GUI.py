@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter.simpledialog import askstring
 from tkinter.messagebox import showerror
+from tkscrolledframe import ScrolledFrame
 from shapes import Point, Line, delete_point, delete_line, points, lines, angles
 
 root = Tk()
@@ -43,8 +44,8 @@ def set_current_mode(new_mode: str):
 
 
 split_frame = PanedWindow(master=mainframe)
-
-shape_pane = Frame(master=split_frame)
+shape_pane_master = ScrolledFrame(master=split_frame)
+shape_pane = shape_pane_master.display_widget(Frame)
 
 
 class ShapePane:
@@ -71,7 +72,10 @@ class ShapePane:
     def set_texts(self, shapes: list):
         self.empty()
         for shape in shapes:
-            self.append(shape.name)
+            try:
+                self.append(shape.name)
+            except AttributeError:
+                self.append(shape)
 
     def on_listbox_element_switch(self, get_current_shape, command):
         def get_element(event):
@@ -92,7 +96,7 @@ class ShapePane:
         self.listbox.bind('<<ListboxSelect>>', select_command)
 
 
-split_frame.add(shape_pane, minsize=250)
+split_frame.add(shape_pane_master, minsize=250)
 
 diagram_editor_frame = Frame(split_frame)
 diagram_editor = Canvas(
@@ -206,34 +210,6 @@ class LinePropertyPane:
 
 
 split_frame.add(property_panel, minsize=200)
-shape_property_pane = Frame(master=mainframe)
-
-
-class ShapePropertyPane:
-    def __init__(self, property_name: str):
-        self.mainframe = Frame(master=shape_property_pane)
-        Label(master=shape_property_pane, text=property_name).pack(side=TOP, anchor=W)
-        self.listbox = Listbox(master=self.mainframe)
-        self.scrollbar = Scrollbar(master=self.mainframe)
-        self.listbox.pack(side=LEFT)
-        self.scrollbar.pack(side=RIGHT, fill=Y)
-        self.listbox.config(yscrollcommand=self.scrollbar.set)
-        self.scrollbar.config(command=self.listbox.yview)
-        self.mainframe.pack(side=LEFT, expand=False)
-    
-    def empty(self):
-        self.listbox.delete(0, END)
-
-    def append(self, string: str):
-        self.listbox.insert(END, string)
-
-    def set_texts(self, properties: list):
-        self.empty()
-        for property in properties:
-            self.append(property)
-
-
-shape_property_pane.pack(side=TOP, anchor=W)
 split_frame.pack(fill=Y)
 
 mainframe.pack(fill=BOTH)
