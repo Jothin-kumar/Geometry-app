@@ -212,14 +212,14 @@ shape_property_pane = Frame(master=mainframe)
 class ShapePropertyPane:
     def __init__(self, property_name: str):
         self.mainframe = Frame(master=shape_property_pane)
-        Label(master=shape_property_pane, text=property_name).pack(side=TOP, fill=X)
+        Label(master=shape_property_pane, text=property_name).pack(side=TOP, anchor=W)
         self.listbox = Listbox(master=self.mainframe)
         self.scrollbar = Scrollbar(master=self.mainframe)
         self.listbox.pack(side=LEFT)
         self.scrollbar.pack(side=RIGHT, fill=Y)
         self.listbox.config(yscrollcommand=self.scrollbar.set)
         self.scrollbar.config(command=self.listbox.yview)
-        self.mainframe.pack(side=LEFT, expand=False, anchor=W)
+        self.mainframe.pack(side=LEFT, expand=False)
     
     def empty(self):
         self.listbox.delete(0, END)
@@ -233,7 +233,7 @@ class ShapePropertyPane:
             self.append(property)
 
 
-shape_property_pane.pack(fill=Y)
+shape_property_pane.pack(side=TOP, anchor=W)
 split_frame.pack(fill=Y)
 
 mainframe.pack(fill=BOTH)
