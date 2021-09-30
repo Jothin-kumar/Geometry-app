@@ -210,4 +210,7 @@ def on_diagram_editor_click(event):  # When user clicks on the diagram editor.
 
 
 GUI.on_diagram_viewer_click(on_diagram_editor_click)
+GUI.bind_key('p', switch_to_point_edit)
+GUI.bind_key('l', switch_to_line_edit)
+GUI.bind_key('a', switch_to_angle_mode)
 GUI.mainloop()

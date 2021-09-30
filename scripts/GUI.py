@@ -211,6 +211,21 @@ class LinePropertyPane:
 
 split_frame.add(property_panel, minsize=200)
 split_frame.pack(fill=Y)
+on_key_press_dict = {}
 
+
+def bind_key(char: str, command):
+    on_key_press_dict[char] = command
+
+
+def on_key_press(event):
+    try:
+        on_key_press_dict[event.char]()
+    except KeyError:
+        pass
+
+
+mainframe.bind('<Key>', on_key_press)
+mainframe.focus_set()
 mainframe.pack(fill=BOTH)
 mainloop = root.mainloop
