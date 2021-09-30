@@ -1,3 +1,5 @@
+from types import prepare_class
+from typing import List
 from shapes import points, lines, Line
 collinear_points_list = []
 parallel_lines_list = []
@@ -42,56 +44,34 @@ def refresh_collinear_points():
 
 
 def refresh_parallel_lines():
-    global line_exists_in_a_parallel_line_group
     global parallel_lines_list
     parallel_lines_list = []
-    parallel_lines_list_temp = []
-    line_exists_in_a_parallel_line_group = []
-    def parallel(line1: Line, line2: Line):
-        return any([
-            any([
-                line1.point1.x - line1.point2.x == line2.point1.x - line2.point2.x,
-                line1.point1.y - line1.point2.y == line2.point1.y - line2.point2.y,
-                ]),
-            all([
-                line1.point1.x + line1.point2.x == line2.point1.x + line2.point2.x,
-                line1.point1.y + line1.point2.y == line2.point1.y + line2.point2.y,
-                ]),
-            all([
-                line1.point1.x - line1.point1.y == line1.point2.x - line1.point2.y,
-                line2.point1.x - line2.point1.y == line2.point2.x - line2.point2.y,
-            ]),
-            all([
-                line1.point1.x + line1.point1.y == line1.point2.x + line1.point2.y,
-                line2.point1.x + line2.point1.y == line2.point2.x + line2.point2.y,
-            ])
-        ]) and all([
-            line1.point1 != line2.point1,
-            line1.point2 != line2.point2,
-            line1.point1 != line2.point2,
-            line1.point2 != line2.point1
-        ])
+    parallel_lines_dicts_x = []
+    parallel_lines_dicts_y = []
     for line in lines:
-        line_exists_in_a_parallel_line_group = False
-        for parallel_lines in parallel_lines_list_temp:
-            for parallel_line in parallel_lines:
-                if parallel_line == line:
-                    line_exists_in_a_parallel_line_group = True
-        if not line_exists_in_a_parallel_line_group:
-            for parallel_lines in parallel_lines_list_temp:
-                is_parallel = True
-                for parallel_line in parallel_lines:
-                    if not parallel(line, parallel_line):
-                        is_parallel = False
-                if is_parallel:
-                    parallel_lines.append(line)
-                    line_exists_in_a_parallel_line_group = True
+        if line.point1.x == line.point2.x:
+            line_grouped = False
+            for parallel_line_dict in parallel_lines_dicts_x:
+                if not line.point1.x in parallel_line_dict['reserved x']:
+                    parallel_line_dict['lines'].append(line)
+                    parallel_line_dict['reserved x'].append(line.point1.x)
+                    line_grouped = True
                     break
-        if not line_exists_in_a_parallel_line_group:
-            parallel_lines_list_temp.append([line])
-    for parallel_lines in parallel_lines_list_temp:
-        if not parallel_lines in parallel_lines_list:
-            parallel_lines_list.append(parallel_lines)
+            if not line_grouped:
+                parallel_lines_dicts_x.append({'lines': [line], 'reserved x': [line.point1.x]})
+        if line.point1.y == line.point2.y:
+            line_grouped = False
+            for parallel_line_dict in parallel_lines_dicts_y:
+                if not line.point1.y in parallel_line_dict['reserved y']:
+                    parallel_line_dict['lines'].append(line)
+                    parallel_line_dict['reserved y'].append(line.point1.y)
+                    line_grouped = True
+            if not line_grouped:
+                parallel_lines_dicts_y.append({'lines': [line], 'reserved y': [line.point1.y]})
+    for parallel_line_dict in parallel_lines_dicts_x:
+        parallel_lines_list.append(parallel_line_dict['lines'])
+    for parallel_line_dict in parallel_lines_dicts_y:
+        parallel_lines_list.append(parallel_line_dict['lines'])
 
 
 def refresh_all():
