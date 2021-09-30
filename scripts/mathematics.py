@@ -56,7 +56,6 @@ def refresh_parallel_lines():
                     parallel_line_dict['lines'].append(line)
                     parallel_line_dict['reserved x'].append(line.point1.x)
                     line_grouped = True
-                    break
             if not line_grouped:
                 parallel_lines_dicts_x.append({'lines': [line], 'reserved x': [line.point1.x]})
         if line.point1.y == line.point2.y:
