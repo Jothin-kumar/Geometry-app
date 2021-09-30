@@ -6,42 +6,38 @@ parallel_lines_list = []
 def refresh_collinear_points():
     global collinear_points_list
     collinear_points_list = []
-    collinear_points_list_temp = []
+    collinear_points_dict_x = {}
+    collinear_points_dict_y = {}
+    collinear_points_dict_slant_plus = {}
+    collinear_points_dict_slant_minus = {}
     for point in points:
-        collinear_points_list_temp.append({'points': [point], 'collinear by': 'x', 'x': point.x})
-        collinear_points_list_temp.append({'points': [point], 'collinear by': 'y', 'y': point.y})
-        for collinear_points in collinear_points_list_temp:
-            if collinear_points['collinear by'] == 'x':
-                if collinear_points['x'] == point.x:
-                    if not point in collinear_points['points']:
-                        collinear_points['points'].append(point)
-            elif collinear_points['collinear by'] == 'y':
-                if collinear_points['y'] == point.y:
-                    if not point in collinear_points['points']:
-                        collinear_points['points'].append(point)
-    for collinear_points in collinear_points_list_temp:
-        if len(collinear_points['points']) > 2:
-            collinear_points_list.append(collinear_points['points'])
-    collinear_points_list_temp = []
-    for point in points:
-        point_exists_in_a_collinear_point_group = False
-        for collinear_points in collinear_points_list_temp:
-            for collinear_point in collinear_points:
-                if collinear_point == point:
-                    point_exists_in_a_collinear_point_group = True
-        if not point_exists_in_a_collinear_point_group:
-            for collinear_points_ in collinear_points_list_temp:
-                if any([
-                    (collinear_points_[0].x - collinear_points_[0].y) == (point.x - point.y),
-                    (collinear_points_[0].x + collinear_points_[0].y) == (point.x + point.y)
-                    ]):
-                    collinear_points_.append(point)
-                    point_exists_in_a_collinear_point_group = True
-                    break
-        if not point_exists_in_a_collinear_point_group:
-            collinear_points_list_temp.append([point])
-    for collinear_points in collinear_points_list_temp:
-        if len(collinear_points) > 2:
+        try:
+            collinear_points_dict_x[point.x].append(point)
+        except KeyError:
+            collinear_points_dict_x[point.x] = [point]
+        try:
+            collinear_points_dict_y[point.y].append(point)
+        except KeyError:
+            collinear_points_dict_y[point.y] = [point]
+        try:
+            collinear_points_dict_slant_plus[point.x + point.y].append(point)
+        except KeyError:
+            collinear_points_dict_slant_plus[point.x + point.y] = [point]
+        try:
+            collinear_points_dict_slant_minus[point.x - point.y].append(point)
+        except KeyError:
+            collinear_points_dict_slant_minus[point.x - point.y] = [point]
+    for collinear_points in collinear_points_dict_x.values():
+        if len(collinear_points) >= 3:
+            collinear_points_list.append(collinear_points)
+    for collinear_points in collinear_points_dict_y.values():
+        if len(collinear_points) >= 3:
+            collinear_points_list.append(collinear_points)
+    for collinear_points in collinear_points_dict_slant_plus.values():
+        if len(collinear_points) >= 3:
+            collinear_points_list.append(collinear_points)
+    for collinear_points in collinear_points_dict_slant_minus.values():
+        if len(collinear_points) >= 3:
             collinear_points_list.append(collinear_points)
 
 
@@ -83,7 +79,11 @@ def refresh_parallel_lines():
                     line_exists_in_a_parallel_line_group = True
         if not line_exists_in_a_parallel_line_group:
             for parallel_lines in parallel_lines_list_temp:
-                if parallel(line, parallel_lines[0]):
+                is_parallel = True
+                for parallel_line in parallel_lines:
+                    if not parallel(line, parallel_line):
+                        is_parallel = False
+                if is_parallel:
                     parallel_lines.append(line)
                     line_exists_in_a_parallel_line_group = True
                     break
