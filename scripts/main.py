@@ -43,6 +43,12 @@ def switch_to_collinear_points_mode():
     GUI.set_current_mode('Collinear points')
 
 
+def switch_to_parallel_lines_mode():
+    global current_shape
+    current_shape = 'parallel line'
+    GUI.set_current_mode('Parallel lines')
+
+
 def refresh_points_panel():  # Command to refresh points.
     points_pane.set_texts(shapes.points)
 
@@ -92,7 +98,7 @@ points_pane = GUI.ShapePane(shape_name='Points', switch_to_this_shape_command=sw
 lines_pane = GUI.ShapePane(shape_name='Lines', switch_to_this_shape_command=switch_to_line_edit)  # The lines panel.
 angle_pane = GUI.ShapePane(shape_name='Angles', switch_to_this_shape_command=switch_to_angle_mode)
 colliner_points_pane = GUI.ShapePane('Collinear points', switch_to_this_shape_command=switch_to_collinear_points_mode)
-parallel_lines_pane = GUI.ShapePane('Parallel lines', switch_to_this_shape_command=lambda: None)
+parallel_lines_pane = GUI.ShapePane('Parallel lines', switch_to_this_shape_command=switch_to_parallel_lines_mode)
 previous_highlighted_point = None  # Variable to store previous highlighted point.
 previous_highlighted_line = None  # Variable to store previous highlighted line.
 previous_point_property = None  # Variable to store previous point shown in property panel.
@@ -119,9 +125,8 @@ def on_point_pane_element_switch(string: str):
 
 def on_collinear_points_pane_element_switch(string: str):
     global previous_highlighted_collinear_points
-    if previous_highlighted_collinear_points:
-        for previous_highlighted_point in previous_highlighted_collinear_points:
-            previous_highlighted_point.un_highlight()
+    for previous_highlighted_point in previous_highlighted_collinear_points:
+        previous_highlighted_point.un_highlight()
     points = []
     for point_name in string.split():
         points.append(shapes.get_point_by_name(point_name))
@@ -144,6 +149,18 @@ def on_line_pane_element_switch(string: str):
     previous_highlighted_line = line  # When called next time, this line is the previously highlighted one.
 
 
+def on_parallel_line_pane_element_switch(string: str):
+    global previous_highlighted_parallel_lines
+    for previous_highlighted_line in previous_highlighted_parallel_lines:
+        previous_highlighted_line.un_highlight()
+    lines = []
+    for line_name in string.split():
+        lines.append(shapes.get_line_by_name(line_name))
+    for line in lines:
+        line.highlight(unhighlighted_others=True)
+    previous_highlighted_parallel_lines = lines
+
+
 def on_angle_pane_element_switch(string: str):
     global previous_highlighted_angle
     if previous_highlighted_angle:
@@ -162,7 +179,7 @@ points_pane.on_listbox_element_switch(get_current_shape, on_point_pane_element_s
 lines_pane.on_listbox_element_switch(get_current_shape, on_line_pane_element_switch)
 angle_pane.on_listbox_element_switch(get_current_shape, on_angle_pane_element_switch)
 colliner_points_pane.on_listbox_element_switch(get_current_shape, on_collinear_points_pane_element_switch)
-
+parallel_lines_pane.on_listbox_element_switch(get_current_shape, on_parallel_line_pane_element_switch)
 
 def on_diagram_editor_click(event):  # When user clicks on the diagram editor.
     x = (int(event.x / 50) * 50) + 25
@@ -214,4 +231,5 @@ GUI.bind_key('p', switch_to_point_edit)
 GUI.bind_key('l', switch_to_line_edit)
 GUI.bind_key('a', switch_to_angle_mode)
 GUI.bind_key('c', switch_to_collinear_points_mode)
+GUI.bind_key('r', switch_to_parallel_lines_mode)
 GUI.mainloop()
