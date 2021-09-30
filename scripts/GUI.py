@@ -225,7 +225,7 @@ def on_key_press(event):
         pass
 
 
-mainframe.bind('<Key>', on_key_press)
-mainframe.focus_set()
+root.bind('<Key>', on_key_press)
+root.focus_set()
 mainframe.pack(fill=BOTH)
 mainloop = root.mainloop
