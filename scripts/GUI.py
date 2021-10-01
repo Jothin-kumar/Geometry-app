@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter.simpledialog import askstring
 from tkinter.messagebox import showerror
 from tkscrolledframe import ScrolledFrame
-from shapes import Point, Line, delete_point, delete_line, points, lines, angles
+from shapes import Point, Line, delete_point, delete_line, points, lines
 
 root = Tk()
 root.wm_title('Geometry app')

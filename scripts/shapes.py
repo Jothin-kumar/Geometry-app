@@ -68,7 +68,7 @@ class Point:
         self.text = self.create_text_command(self.x, self.y, text=self.name, fill='red')
         self.displayed = True
 
-    def un_highlight(self):
+    def unhighlight(self):
         self.hide()
         if self.x and self.y:
             self.show()
@@ -114,7 +114,7 @@ class Line:
         self.line = self.create_line_command(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill='red')
         self.displayed = True
 
-    def un_highlight(self):
+    def unhighlight(self):
         self.hide()
         if self.point1 and self.point2:
             self.show()

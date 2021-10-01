@@ -108,11 +108,26 @@ previous_highlighted_collinear_points = []
 previous_highlighted_parallel_lines = []
 
 
+def unhighlight_all_points():
+    for point in previous_highlighted_collinear_points:
+        point.unhighlight()
+    if previous_highlighted_point:
+        previous_highlighted_point.unhighlight()
+
+
+def unhighlight_all_lines():
+    for line in previous_highlighted_parallel_lines:
+        line.unhighlight()
+    if previous_highlighted_line:
+        previous_highlighted_line.unhighlight()
+    if previous_highlighted_angle:
+        previous_highlighted_angle.unhighlight()
+
+
 def on_point_pane_element_switch(string: str):
     global previous_highlighted_point
     global previous_point_property
-    if previous_highlighted_point:  # If previous highlighted point is not None.
-        previous_highlighted_point.un_highlight()  # Un-Highlight.
+    unhighlight_all_points()
     if previous_point_property:  # If previous point property is not None.
         previous_point_property.delete()  # Delete it.
     point = shapes.get_point_by_name(string)  # Get point object from it's name.
@@ -125,8 +140,7 @@ def on_point_pane_element_switch(string: str):
 
 def on_collinear_points_pane_element_switch(string: str):
     global previous_highlighted_collinear_points
-    for previous_highlighted_point in previous_highlighted_collinear_points:
-        previous_highlighted_point.un_highlight()
+    unhighlight_all_points()
     points = []
     for point_name in string.split():
         points.append(shapes.get_point_by_name(point_name))
@@ -138,8 +152,7 @@ def on_collinear_points_pane_element_switch(string: str):
 def on_line_pane_element_switch(string: str):
     global previous_highlighted_line
     global previous_line_property
-    if previous_highlighted_line:  # If previous highlighted line is not None.
-        previous_highlighted_line.un_highlight()  # Un-Highlight.
+    unhighlight_all_lines()
     if previous_line_property:  # If previous line property is not None.
         previous_line_property.delete()  # Delete it.
     line = shapes.get_line_by_name(string)  # Get line object from it's name.
@@ -151,8 +164,7 @@ def on_line_pane_element_switch(string: str):
 
 def on_parallel_line_pane_element_switch(string: str):
     global previous_highlighted_parallel_lines
-    for previous_highlighted_line in previous_highlighted_parallel_lines:
-        previous_highlighted_line.un_highlight()
+    unhighlight_all_lines()
     lines = []
     for line_name in string.split():
         lines.append(shapes.get_line_by_name(line_name))
@@ -163,8 +175,7 @@ def on_parallel_line_pane_element_switch(string: str):
 
 def on_angle_pane_element_switch(string: str):
     global previous_highlighted_angle
-    if previous_highlighted_angle:
-        previous_highlighted_angle.unhighlight()
+    unhighlight_all_lines()
     angle = shapes.get_angle_by_name(string)
     if angle:
         angle.highlight()
@@ -204,7 +215,7 @@ def on_diagram_editor_click(event):  # When user clicks on the diagram editor.
             except ValueError:  # In case it already exists, do nothing.
                 pass
         if previous_highlighted_point:  # If previous highlighted point is not None.
-            previous_highlighted_point.un_highlight()  # Un-Highlight.
+            previous_highlighted_point.unhighlight()  # Un-Highlight.
         if previous_point_property:  # If previous point property is not None.
             previous_point_property.delete()  # Delete it.
         point = shapes.get_point_by_coordinates(x, y)  # Get point object from it's coordinates.

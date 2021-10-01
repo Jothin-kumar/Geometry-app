@@ -1,6 +1,4 @@
-from types import prepare_class
-from typing import List
-from shapes import points, lines, Line
+from shapes import points, lines
 collinear_points_list = []
 parallel_lines_list = []
 
