@@ -102,9 +102,8 @@ diagram_editor_frame = Frame(split_frame)
 diagram_editor = Canvas(
     master=diagram_editor_frame,
     bg='white',
-    width=20000,
-    height=20000,
-    scrollregion=(0, 0, 2050, 2050)
+    width=1450,
+    height=950,
 )
 def refresh_diagram_editor():
     diagram_editor.delete('all')
@@ -114,20 +113,10 @@ def refresh_diagram_editor():
     for line in lines:
         line.displayed = FALSE
         line.show()
-    for x in range(0, 41):
-        for y in range(0, 41):
+    for x in range(0, 29):
+        for y in range(0, 19):
             diagram_editor.create_rectangle(x * 50, y * 50, 50 + (x * 50), 50 + (y * 50), outline='lightgreen')
 refresh_diagram_editor()
-horizontal_scroll_bar_diagram_editor = Scrollbar(master=diagram_editor_frame, orient=HORIZONTAL)
-horizontal_scroll_bar_diagram_editor.pack(side=BOTTOM, fill=X)
-horizontal_scroll_bar_diagram_editor.config(command=diagram_editor.xview)
-
-vertical_scroll_bar_diagram_viewer = Scrollbar(master=diagram_editor_frame, orient=VERTICAL)
-vertical_scroll_bar_diagram_viewer.pack(side=RIGHT, fill=Y)
-vertical_scroll_bar_diagram_viewer.config(command=diagram_editor.yview)
-
-diagram_editor.config(
-    xscrollcommand=horizontal_scroll_bar_diagram_editor.set, yscrollcommand=vertical_scroll_bar_diagram_viewer.set)
 diagram_editor.pack(expand=True, fill=BOTH)
 create_line = diagram_editor.create_line
 create_text = diagram_editor.create_text
