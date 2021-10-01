@@ -109,7 +109,7 @@ class Line:
             for angle_ in angles:
                 angle_.unhighlight()
             for line_ in lines:
-                line_.un_highlight()
+                line_.unhighlight()
         self.hide()
         self.line = self.create_line_command(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill='red')
         self.displayed = True
@@ -142,13 +142,13 @@ class Angle:
         for angle_ in angles:
             angle_.unhighlight()
         for line_ in lines:
-            line_.un_highlight()
+            line_.unhighlight()
         for line in self.lines:
             line.highlight(unhighlighted_others=True)
     
     def unhighlight(self):
         for line in lines:
-            line.un_highlight()
+            line.unhighlight()
 
 
 def angle(line1: Line, line2: Line):

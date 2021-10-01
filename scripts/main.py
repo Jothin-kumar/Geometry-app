@@ -34,7 +34,7 @@ def switch_to_angle_mode():
     current_shape = 'angle'
     GUI.set_current_mode('Angle')
     for line in shapes.lines:
-        line.un_highlight()
+        line.highlight()
 
 
 def switch_to_collinear_points_mode():
