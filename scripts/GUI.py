@@ -96,7 +96,7 @@ class ShapePane:
         self.listbox.bind('<<ListboxSelect>>', select_command)
 
 
-split_frame.add(shape_pane_master, minsize=250)
+split_frame.add(shape_pane_master)
 
 diagram_editor_frame = Frame(split_frame)
 diagram_editor = Canvas(
@@ -135,7 +135,7 @@ def on_diagram_viewer_click(command):
     diagram_editor.bind('<Button-1>', command)
 
 
-split_frame.add(diagram_editor_frame, minsize=1400)
+split_frame.add(diagram_editor_frame)
 
 
 def get_variable_name_from_user():
@@ -198,7 +198,7 @@ class LinePropertyPane:
         self.mainframe.pack_forget()
 
 
-split_frame.add(property_panel, minsize=200)
+split_frame.add(property_panel)
 split_frame.pack(fill=Y)
 on_key_press_dict = {}
 
