@@ -1,6 +1,7 @@
-from shapes import points, lines
+from shapes import points, lines, point
 collinear_points_list = []
 parallel_lines_list = []
+intersecting_lines_and_intersection_point = {}
 
 
 def refresh_collinear_points():
@@ -95,6 +96,23 @@ def refresh_parallel_lines():
         parallel_lines_list.append(parallel_lines_dict['lines'])
 
 
-def refresh_all():
+def refresh_intersecting_lines(create_text_command, delete_line):
+    global intersecting_lines_and_intersection_point
+    intersecting_lines_and_intersection_point = {}
+    horizontal_lines = []
+    vertical_lines = []
+    for line in lines:
+        if line.point1.y == line.point2.y:
+            horizontal_lines.append(line)
+        elif line.point1.x == line.point2.x:
+            vertical_lines.append(line)
+    for horizontal_line in horizontal_lines:
+        for vertical_line in vertical_lines:
+            intersecting_lines_and_intersection_point[(vertical_line.point1.x, horizontal_line.point1.y)] = {'horizontal line': horizontal_line, 'vertical line': vertical_line}
+            point(vertical_line.point1.x, horizontal_line.point1.y, create_text_command, delete_line)
+
+
+def refresh_all(create_text_command, delete_line):
     refresh_collinear_points()
     refresh_parallel_lines()
+    refresh_intersecting_lines(create_text_command, delete_line)

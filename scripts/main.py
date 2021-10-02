@@ -1,4 +1,3 @@
-from tkinter.constants import NO
 import GUI
 import shapes
 import mathematics
@@ -88,7 +87,7 @@ def refresh_all():  # Command to refresh side panel.
     refresh_points_panel()
     refresh_lines_panel()
     refresh_angles_panel()
-    mathematics.refresh_all()
+    mathematics.refresh_all(GUI.create_text, GUI.delete)
     refresh_collinear_points_panel()
     refresh_parallel_lines_panel()
     GUI.refresh_diagram_editor()
