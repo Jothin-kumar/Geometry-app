@@ -68,7 +68,7 @@ def refresh_collinear_points_panel():
             append_value += point.name
             append_value += ' '
         append_list.append(append_value)
-    colliner_points_pane.set_texts(append_list)
+    collinear_points_pane.set_texts(append_list)
 
 
 def refresh_parallel_lines_panel():
@@ -96,7 +96,7 @@ def refresh_all():  # Command to refresh side panel.
 points_pane = GUI.ShapePane(shape_name='Points', switch_to_this_shape_command=switch_to_point_edit)  # The points panel.
 lines_pane = GUI.ShapePane(shape_name='Lines', switch_to_this_shape_command=switch_to_line_edit)  # The lines panel.
 angle_pane = GUI.ShapePane(shape_name='Angles', switch_to_this_shape_command=switch_to_angle_mode)
-colliner_points_pane = GUI.ShapePane('Collinear points', switch_to_this_shape_command=switch_to_collinear_points_mode)
+collinear_points_pane = GUI.ShapePane('Collinear points', switch_to_this_shape_command=switch_to_collinear_points_mode)
 parallel_lines_pane = GUI.ShapePane('Parallel lines', switch_to_this_shape_command=switch_to_parallel_lines_mode)
 previous_highlighted_point = None  # Variable to store previous highlighted point.
 previous_highlighted_line = None  # Variable to store previous highlighted line.
@@ -188,8 +188,9 @@ def get_current_shape():
 points_pane.on_listbox_element_switch(get_current_shape, on_point_pane_element_switch)
 lines_pane.on_listbox_element_switch(get_current_shape, on_line_pane_element_switch)
 angle_pane.on_listbox_element_switch(get_current_shape, on_angle_pane_element_switch)
-colliner_points_pane.on_listbox_element_switch(get_current_shape, on_collinear_points_pane_element_switch)
+collinear_points_pane.on_listbox_element_switch(get_current_shape, on_collinear_points_pane_element_switch)
 parallel_lines_pane.on_listbox_element_switch(get_current_shape, on_parallel_line_pane_element_switch)
+
 
 def on_diagram_editor_click(event):  # When user clicks on the diagram editor.
     x = (int(event.x / 50) * 50) + 25
