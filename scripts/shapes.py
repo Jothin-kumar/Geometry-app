@@ -23,7 +23,7 @@ class Point:
         self.y = y
         for point_ in points:
             if point_.x == self.x and point_.y == self.y:
-                raise ValueError('Line already exists.')
+                raise ValueError('Point already exists.')
         self.name = get_variable_letter()
         self.coordinates = (self.x, self.y)
         self.create_text_command = create_text_command

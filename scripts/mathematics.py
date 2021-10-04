@@ -109,7 +109,10 @@ def refresh_intersecting_lines(create_text_command, delete_line):
     for horizontal_line in horizontal_lines:
         for vertical_line in vertical_lines:
             intersecting_lines_and_intersection_point[(vertical_line.point1.x, horizontal_line.point1.y)] = {'horizontal line': horizontal_line, 'vertical line': vertical_line}
-            point(vertical_line.point1.x, horizontal_line.point1.y, create_text_command, delete_line)
+            try:
+                point(vertical_line.point1.x, horizontal_line.point1.y, create_text_command, delete_line)
+            except ValueError:
+                pass
 
 
 def refresh_all(create_text_command, delete_line):
