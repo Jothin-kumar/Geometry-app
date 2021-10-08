@@ -3,7 +3,7 @@ Geometry app is a simple GUI application to solve geometrical problems. Currentl
 # Download
 Geometry app is available to download for:  
  - [Linux](https://raw.githubusercontent.com/Jothin-kumar/Geometry-app/master/Downloads/geometry_1.0.0-1_arm64.deb)  
- - [Windows](https://raw.githubusercontent.com/Jothin-kumar/Geometry-app/master/Downloads/geometry-app-for-windows.exe)    
+ - [Windows](https://raw.githubusercontent.com/Jothin-kumar/Geometry-app/master/Downloads/geometry-app.exe)    
 or, you can run the python source code directly if you have python installed:  
  - [zip](https://raw.githubusercontent.com/Jothin-kumar/Geometry-app/master/Downloads/source-code-zip-file.zip)  
  - [tar.xz for linux and mac](https://raw.githubusercontent.com/Jothin-kumar/Geometry-app/master/Downloads/source-code-tar.xz.tar.xz)    
