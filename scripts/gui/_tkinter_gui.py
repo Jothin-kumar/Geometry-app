@@ -1,8 +1,13 @@
+import sys
 from tkinter import *
-from tkinter.simpledialog import askstring
 from tkinter.messagebox import showerror
+from tkinter.simpledialog import askstring
+
 from tkscrolledframe import ScrolledFrame
-from shapes import Point, Line, delete_point, delete_line, points, lines
+
+# Import global_variables module
+# sys.path.append('../../')
+import global_variables
 
 root = Tk()
 root.wm_title('Geometry app')
@@ -11,12 +16,12 @@ menu_bar = Frame(master=mainframe)
 
 
 def show_all_points():
-    for point in points:
+    for point in global_variables.points:
         point.show()
 
 
 def hide_all_points():
-    for point in points:
+    for point in global_variables.points:
         point.hide()
 
 
@@ -105,17 +110,21 @@ diagram_editor = Canvas(
     width=1450,
     height=950,
 )
+
+
 def refresh_diagram_editor():
     diagram_editor.delete('all')
-    for point in points:
+    for point in global_variables.points:
         point.displayed = False
         point.show()
-    for line in lines:
+    for line in global_variables.lines:
         line.displayed = FALSE
         line.show()
     for x in range(0, 29):
         for y in range(0, 19):
             diagram_editor.create_rectangle(x * 50, y * 50, 50 + (x * 50), 50 + (y * 50), outline='lightgreen')
+
+
 refresh_diagram_editor()
 diagram_editor.pack(expand=True, fill=BOTH)
 create_line = diagram_editor.create_line
@@ -146,7 +155,7 @@ property_panel = Frame(master=split_frame)
 
 
 class PointPropertyPane:
-    def __init__(self, point: Point, refresh_command, point_modify_command):
+    def __init__(self, point: global_variables.Point, refresh_command, point_modify_command):
         self.mainframe = Frame(master=property_panel)
         name_label = Label(master=self.mainframe, text=f'Point: {point.name}')
         name_label.pack()
@@ -157,6 +166,7 @@ class PointPropertyPane:
                 try:
                     point.rename(str(user_variable), refresh_command)
                     name_label['text'] = f'Point: {point.name}'
+                    global_variables.refresh_all_panels()
                 except ValueError as error_message:
                     showerror('Error while renaming', error_message)
 
@@ -164,7 +174,7 @@ class PointPropertyPane:
         rename_button.pack()
 
         def delete_point_():
-            delete_point(point)
+            global_variables.delete_point(point)
             refresh_command()
             self.delete()
 
@@ -180,13 +190,13 @@ class PointPropertyPane:
 
 
 class LinePropertyPane:
-    def __init__(self, line: Line, refresh_command):
+    def __init__(self, line: global_variables.Line, refresh_command):
         self.mainframe = Frame(master=property_panel)
         name_label = Label(master=self.mainframe, text=f'Line: {line.name}')
         name_label.pack()
 
         def delete_line_():
-            delete_line(line)
+            global_variables.delete_line(line)
             refresh_command()
             self.delete()
 
@@ -218,3 +228,8 @@ root.bind('<Key>', on_key_press)
 root.focus_set()
 mainframe.pack(fill=BOTH)
 mainloop = root.mainloop
+
+
+def trigger():
+    global_variables.create_text_command = create_text
+    global_variables.create_line_command = create_line
