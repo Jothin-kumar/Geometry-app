@@ -9,13 +9,13 @@ import global_variables
 
 
 class Line:
-    def __init__(self, point1: global_variables.Point, point2: global_variables.Point, create_line_command,
-                 delete_command, show: bool = True):
+    def __init__(self, point1: global_variables.get_value('Point'), point2: global_variables.get_value('Point'),
+                 create_line_command, delete_command, show: bool = True):
         self.point1 = point1
         self.point2 = point2
         if self.point1 == self.point2:
             raise ValueError('A line must have two different points.')
-        for line_ in global_variables.lines:
+        for line_ in global_variables.get_value('lines'):
             if (line_.point1 == point1 and line_.point2 == point2) or (
                     line_.point2 == point1 and line_.point1 == point2):
                 raise ValueError('Line already exists.')
@@ -42,9 +42,9 @@ class Line:
 
     def highlight(self, unhighlighted_others=False):
         if not unhighlighted_others:
-            for angle_ in global_variables.angles:
+            for angle_ in global_variables.get_value('angles'):
                 angle_.unhighlight()
-            for line_ in global_variables.lines:
+            for line_ in global_variables.get_value('lines'):
                 line_.unhighlight()
         self.hide()
         self.line = self.create_line_command(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill='red')
@@ -56,11 +56,11 @@ class Line:
             self.show()
 
 
-def line(point1: global_variables.Point, point2: global_variables.Point, create_line_command, delete_command,
-         show: bool = True):
+def line(point1: global_variables.get_value('Point'), point2: global_variables.get_value('Point'), create_line_command,
+         delete_command, show: bool = True):
     line_ = Line(point1, point2, create_line_command, delete_command, show)
-    global_variables.lines.append(line_)
-    global_variables.refresh_angles()
+    global_variables.get_value('lines').append(line_)
+    global_variables.get_value('refresh_angles')()
     return line_
 
 
@@ -68,7 +68,7 @@ def delete_line(line_: Line):
     line_.point1 = None
     line_.point2 = None
     line_.hide()
-    del global_variables.lines[global_variables.lines.index(line_)]
+    del global_variables.get_value('lines')[global_variables.get_value('lines').index(line_)]
     global_variables.refresh_angles()
 
 
@@ -77,6 +77,6 @@ def refresh_line(line_: Line):
 
 
 def get_line_by_name(name: str):
-    for line_ in global_variables.lines:
+    for line_ in global_variables.get_value('lines'):
         if line_.name == name:
             return line_

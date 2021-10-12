@@ -19,12 +19,12 @@ def on_diagram_editor_click(event):  # When user clicks on the diagram editor.
         if current_mode.point_modify_mode:
             previous_highlighted_point.set_coordinates(x, y)
             current_mode.point_modify_mode = False
-            for line in global_variables.lines:
+            for line in global_variables.get_value('lines'):
                 if line.point1.x == previous_highlighted_point.x and line.point1.y == previous_highlighted_point.y:
                     line.point1 = shapes.get_point_by_coordinates(x, y)
                 elif line.point2.x == previous_highlighted_point.x and line.point2.y == previous_highlighted_point.y:
                     line.point2 = shapes.get_point_by_coordinates(x, y)
-                global_variables.refresh_line(line)
+                global_variables.get_value('refresh_line')(line)
         else:
             try:  # Try to create a Point.
                 shapes.point(x, y, gui.create_text, gui.delete)  # Create a point.
@@ -42,14 +42,14 @@ def on_diagram_editor_click(event):  # When user clicks on the diagram editor.
         previous_highlighted_point = point  # When called next time, this point is the previously highlighted one.
     elif current_shape == 'line':  # If current shape is line, Draw line from previous clicked coordinate to here.
         current_click_point = shapes.get_point_by_coordinates(x, y)
-        if global_variables.previous_click_point and current_click_point:
+        if global_variables.get_value('previous_click_point') and current_click_point:
             # If the Point 'previous_click_point' and 'current_click_point' exists.
             try:  # Try to create a line.
-                shapes.line(global_variables.previous_click_point, current_click_point, gui.create_line,
+                shapes.line(global_variables.get_value('previous_click_point'), current_click_point, gui.create_line,
                                       gui.delete)  # Create a line.
             except ValueError:  # In case it already exists, do nothing.
                 pass
-        global_variables.previous_click_point = current_click_point
+        global_variables.set_value('previous_click_point', current_click_point)
     shapes.refresh_all()
     refresh_all_panels()
 

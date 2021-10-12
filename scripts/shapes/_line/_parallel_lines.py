@@ -6,12 +6,12 @@ import global_variables
 
 
 def refresh_parallel_lines():
-    global_variables.parallel_lines_list = []
+    global_variables.set_value('parallel_lines_list', [])
     parallel_lines_dicts_x = []
     parallel_lines_dicts_y = []
     parallel_lines_dicts_plus = []
     parallel_lines_dicts_minus = []
-    for line in global_variables.lines:
+    for line in global_variables.get_value('lines'):
         if line.point1.x == line.point2.x:
             line_grouped = False
             for parallel_line_dict in parallel_lines_dicts_x:
@@ -50,11 +50,11 @@ def refresh_parallel_lines():
             if not line_grouped:
                 parallel_lines_dicts_minus.append(
                     {'lines': [line], 'reserved x y difference': [line.point1.x - line.point1.y]})
-    for parallel_line_dict in parallel_lines_dicts_x:
-        global_variables.parallel_lines_list.append(parallel_line_dict['lines'])
-    for parallel_line_dict in parallel_lines_dicts_y:
-        global_variables.parallel_lines_list.append(parallel_line_dict['lines'])
-    for parallel_lines_dict in parallel_lines_dicts_plus:
-        global_variables.parallel_lines_list.append(parallel_lines_dict['lines'])
-    for parallel_lines_dict in parallel_lines_dicts_minus:
-        global_variables.parallel_lines_list.append(parallel_lines_dict['lines'])
+    for parallel_line_dict_x in parallel_lines_dicts_x:
+        global_variables.get_value('parallel_lines_list').append(parallel_line_dict_x['lines'])
+    for parallel_line_dict_y in parallel_lines_dicts_y:
+        global_variables.get_value('parallel_lines_list').append(parallel_line_dict_y['lines'])
+    for parallel_lines_dict_plus in parallel_lines_dicts_plus:
+        global_variables.get_value('parallel_lines_list').append(parallel_lines_dict_plus['lines'])
+    for parallel_lines_dict_minus in parallel_lines_dicts_minus:
+        global_variables.get_value('parallel_lines_list').append(parallel_lines_dict_minus['lines'])

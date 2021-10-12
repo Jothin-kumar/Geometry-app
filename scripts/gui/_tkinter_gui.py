@@ -16,12 +16,12 @@ menu_bar = Frame(master=mainframe)
 
 
 def show_all_points():
-    for point in global_variables.points:
+    for point in global_variables.get_value('points'):
         point.show()
 
 
 def hide_all_points():
-    for point in global_variables.points:
+    for point in global_variables.get_value('points'):
         point.hide()
 
 
@@ -114,10 +114,10 @@ diagram_editor = Canvas(
 
 def refresh_diagram_editor():
     diagram_editor.delete('all')
-    for point in global_variables.points:
+    for point in global_variables.get_value('points'):
         point.displayed = False
         point.show()
-    for line in global_variables.lines:
+    for line in global_variables.get_value('lines'):
         line.displayed = FALSE
         line.show()
     for x in range(0, 29):
@@ -155,7 +155,7 @@ property_panel = Frame(master=split_frame)
 
 
 class PointPropertyPane:
-    def __init__(self, point: global_variables.Point, refresh_command, point_modify_command):
+    def __init__(self, point: global_variables.get_value('Point'), refresh_command, point_modify_command):
         self.mainframe = Frame(master=property_panel)
         name_label = Label(master=self.mainframe, text=f'Point: {point.name}')
         name_label.pack()
@@ -166,7 +166,7 @@ class PointPropertyPane:
                 try:
                     point.rename(str(user_variable), refresh_command)
                     name_label['text'] = f'Point: {point.name}'
-                    global_variables.refresh_all_panels()
+                    global_variables.get_value('refresh_all_panels')()
                 except ValueError as error_message:
                     showerror('Error while renaming', error_message)
 
@@ -174,7 +174,7 @@ class PointPropertyPane:
         rename_button.pack()
 
         def delete_point_():
-            global_variables.delete_point(point)
+            global_variables.get_value('delete_point')(point)
             refresh_command()
             self.delete()
 
@@ -190,13 +190,13 @@ class PointPropertyPane:
 
 
 class LinePropertyPane:
-    def __init__(self, line: global_variables.Line, refresh_command):
+    def __init__(self, line: global_variables.get_value('Line'), refresh_command):
         self.mainframe = Frame(master=property_panel)
         name_label = Label(master=self.mainframe, text=f'Line: {line.name}')
         name_label.pack()
 
         def delete_line_():
-            global_variables.delete_line(line)
+            global_variables.get_value('delete_line')(line)
             refresh_command()
             self.delete()
 
@@ -231,5 +231,5 @@ mainloop = root.mainloop
 
 
 def trigger():
-    global_variables.create_text_command = create_text
-    global_variables.create_line_command = create_line
+    global_variables.set_value('create_text_command', create_text)
+    global_variables.set_value('create_line_command', create_line)

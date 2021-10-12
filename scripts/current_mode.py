@@ -16,7 +16,7 @@ def get_current_shape():
 
 
 def on_mode_switch():
-    global_variables.previous_click_point = None
+    global_variables.set_value('previous_click_point', None)
     highlighted_shapes.unhighlight_all()
 
 

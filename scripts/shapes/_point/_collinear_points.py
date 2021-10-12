@@ -6,12 +6,12 @@ import global_variables
 
 
 def refresh_collinear_points():
-    global_variables.collinear_points_list = []
+    global_variables.set_value('collinear_points_list', [])
     collinear_points_dict_x = {}
     collinear_points_dict_y = {}
     collinear_points_dict_slant_plus = {}
     collinear_points_dict_slant_minus = {}
-    for point in global_variables.points:
+    for point in global_variables.get_value('points'):
         try:
             collinear_points_dict_x[point.x].append(point)
         except KeyError:
@@ -30,13 +30,13 @@ def refresh_collinear_points():
             collinear_points_dict_slant_minus[point.x - point.y] = [point]
     for collinear_points in collinear_points_dict_x.values():
         if len(collinear_points) >= 3:
-            global_variables.collinear_points_list.append(collinear_points)
+            global_variables.get_value('collinear_points_list').append(collinear_points)
     for collinear_points in collinear_points_dict_y.values():
         if len(collinear_points) >= 3:
-            global_variables.collinear_points_list.append(collinear_points)
+            global_variables.get_value('collinear_points_list').append(collinear_points)
     for collinear_points in collinear_points_dict_slant_plus.values():
         if len(collinear_points) >= 3:
-            global_variables.collinear_points_list.append(collinear_points)
+            global_variables.get_value('collinear_points_list').append(collinear_points)
     for collinear_points in collinear_points_dict_slant_minus.values():
         if len(collinear_points) >= 3:
-            global_variables.collinear_points_list.append(collinear_points)
+            global_variables.get_value('collinear_points_list').append(collinear_points)

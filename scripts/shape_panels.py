@@ -17,22 +17,22 @@ parallel_lines_pane = gui.ShapePane('Parallel lines',
 
 
 def refresh_points_panel():  # Command to refresh points.
-    points_pane.set_texts(global_variables.points)
+    points_pane.set_texts(global_variables.get_value('points'))
 
 
 def refresh_lines_panel():  # Command to refresh lines.
-    lines_pane.set_texts(global_variables.lines)
+    lines_pane.set_texts(global_variables.get_value('lines'))
 
 
 def refresh_angles_panel():
     shapes.refresh_angles()
-    angle_pane.set_texts(global_variables.angles)
+    angle_pane.set_texts(global_variables.get_value('lines'))
 
 
 def refresh_collinear_points_panel():
     shapes.refresh_collinear_points()
     append_list = []
-    for points in global_variables.collinear_points_list:
+    for points in global_variables.get_value('collinear_points_list'):
         append_value = ''
         for point in points:
             append_value += point.name
@@ -44,7 +44,7 @@ def refresh_collinear_points_panel():
 def refresh_parallel_lines_panel():
     shapes.refresh_parallel_lines()
     append_list = []
-    for lines in global_variables.parallel_lines_list:
+    for lines in global_variables.get_value('parallel_lines_list'):
         append_value = ''
         for line in lines:
             append_value += line.name
@@ -54,14 +54,11 @@ def refresh_parallel_lines_panel():
     parallel_lines_pane.set_texts(append_list)
 
 
-previous_highlighted_point = None
 previous_point_property = None
-previous_highlighted_line = None
 previous_line_property = None
 
 
 def on_point_pane_element_switch(string: str):
-    global previous_highlighted_point
     global previous_point_property
     unhighlight_all_points()
     if previous_point_property:  # If previous point property is not None.
@@ -72,22 +69,18 @@ def on_point_pane_element_switch(string: str):
     previous_point_property = gui.PointPropertyPane(point, _refresh_all,
                                                     point_modify_command=current_mode.set_point_modify_mode)
     # When called next time, this is previous.
-    previous_highlighted_point = point  # When called next time, this point is the previously highlighted one.
 
 
 def on_collinear_points_pane_element_switch(string: str):
-    global previous_highlighted_collinear_points
     unhighlight_all_points()
     points = []
     for point_name in string.split():
         points.append(shapes.get_point_by_name(point_name))
     for point in points:
         point.highlight()
-    previous_highlighted_collinear_points = points
 
 
 def on_line_pane_element_switch(string: str):
-    global previous_highlighted_line
     global previous_line_property
     unhighlight_all_lines()
     if previous_line_property:  # If previous line property is not None.
@@ -96,27 +89,22 @@ def on_line_pane_element_switch(string: str):
     if line:
         line.highlight()  # highlight the line.
     previous_line_property = gui.LinePropertyPane(line, _refresh_all)
-    previous_highlighted_line = line  # When called next time, this line is the previously highlighted one.
 
 
 def on_parallel_line_pane_element_switch(string: str):
-    global previous_highlighted_parallel_lines
     unhighlight_all_lines()
     lines = []
     for line_name in string.split():
         lines.append(shapes.get_line_by_name(line_name))
     for line in lines:
         line.highlight(unhighlighted_others=True)
-    previous_highlighted_parallel_lines = lines
 
 
 def on_angle_pane_element_switch(string: str):
-    global previous_highlighted_angle
     unhighlight_all_lines()
     angle = shapes.get_angle_by_name(string)
     if angle:
         angle.highlight()
-    previous_highlighted_angle = angle
 
 
 points_pane.on_listbox_element_switch(current_mode.get_current_shape, on_point_pane_element_switch)
@@ -135,4 +123,4 @@ def refresh_all():
     refresh_parallel_lines_panel()
 
 
-global_variables.refresh_all_panels = refresh_all
+global_variables.set_value('refresh_all_panels', 'refresh_all')

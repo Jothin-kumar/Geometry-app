@@ -1,13 +1,13 @@
-from global_variables import lines, points
+import global_variables
 
 
 def unhighlight_all_points():
-    for point in points:
+    for point in global_variables.get_value('points'):
         point.unhighlight()
 
 
 def unhighlight_all_lines():
-    for line in lines:
+    for line in global_variables.get_value('lines'):
         line.unhighlight()
 
 

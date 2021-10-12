@@ -6,8 +6,8 @@ import global_variables
 
 
 class Angle:
-    def __init__(self, line1: global_variables.Line, line2: global_variables.Line):
-        for angle_ in global_variables.angles:
+    def __init__(self, line1: global_variables.get_value('Line'), line2: global_variables.get_value('Line')):
+        for angle_ in global_variables.get_value('angles'):
             if angle_.lines == [line1, line2] or angle_.lines == [line2, line1]:
                 raise ValueError('Angle already exists')
         self.lines = [line1, line2]
@@ -24,28 +24,28 @@ class Angle:
         self.name = f'{self.points[0].name}{self.vertex.name}{self.points[1].name}'
 
     def highlight(self):
-        for angle_ in global_variables.angles:
+        for angle_ in global_variables.get_value('angles'):
             angle_.unhighlight()
-        for line_ in global_variables.lines:
+        for line_ in global_variables.get_value('lines'):
             line_.unhighlight()
         for line in self.lines:
             line.highlight(unhighlighted_others=True)
 
     def unhighlight(self):
-        for line in global_variables.lines:
+        for line in global_variables.get_value('lines'):
             line.unhighlight()
 
 
-def angle(line1: global_variables.Line, line2: global_variables.Line):
+def angle(line1: global_variables.get_value('Line'), line2: global_variables.get_value('Line')):
     angle_ = Angle(line1, line2)
-    global_variables.angles.append(angle_)
+    global_variables.get_value('angles').append(angle_)
     return angle_
 
 
 def refresh_angles():
-    global_variables.angles = []
-    for line1 in global_variables.lines:
-        for line2 in global_variables.lines:
+    global_variables.set_value('angles', [])
+    for line1 in global_variables.get_value('lines'):
+        for line2 in global_variables.get_value('lines'):
             if not line1 == line2:
                 if line1.point1 == line2.point1 or line1.point1 == line2.point2 or line1.point2 == line2.point1 or line1.point2 == line2.point2:
                     try:
@@ -55,6 +55,6 @@ def refresh_angles():
 
 
 def get_angle_by_name(name: str):
-    for angle_ in global_variables.angles:
+    for angle_ in global_variables.get_value('angles'):
         if angle_.name == name:
             return angle_
