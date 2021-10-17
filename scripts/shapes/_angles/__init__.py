@@ -33,7 +33,7 @@ import global_variables
 class Angle:
     def __init__(self, line1: global_variables.get_value('Line'), line2: global_variables.get_value('Line')):
         for angle_ in global_variables.get_value('angles'):
-            if angle_.lines == [line1, line2] or angle_.lines == [line2, line1]:
+            if angle_.lines in ([line1, line2], [line2, line1]):
                 raise ValueError('Angle already exists')
         self.lines = [line1, line2]
         self.vertex = None
