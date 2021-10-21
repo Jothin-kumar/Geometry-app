@@ -24,8 +24,6 @@ cd scripts
 python main.py
 ```
 **[Read the documentation to know how to use this app!](http://geometry-app.rtfd.io/)**
-## [Contributors](https://github.com/Jothin-kumar/Geometry-app/graphs/contributors):
-**Next on the list might be you!: [Contribute to Geometry app now.](https://github.com/Jothin-kumar/Geometry-app/blob/master/CONTRIBUTING.md)**
 ## Feel free to reach me at:
 ![Email logo](https://github.com/Jothin-kumar/jothin-kumar/blob/main/gmail.png?raw=true)E-mail: [bjothinphysics@gmail.com](mailto:bjothinphysics@gmail.com)  
 ![Discord logo](https://github.com/Jothin-kumar/jothin-kumar/blob/main/discord.png?raw=true)Discord: @jothin-kumar#1075  
