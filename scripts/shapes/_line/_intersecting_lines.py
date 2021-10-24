@@ -31,7 +31,7 @@ import global_variables
 
 
 def refresh_intersecting_lines(create_text_command, delete_line):
-    global_variables.intersecting_lines_and_intersection_point = {}
+    global_variables.set_value('intersecting_lines_and_intersection_point', {})
     horizontal_lines = []
     vertical_lines = []
     for line in global_variables.get_value('lines'):
