@@ -51,7 +51,7 @@ def refresh_lines_panel():  # Command to refresh lines.
 
 def refresh_angles_panel():
     shapes.refresh_angles()
-    angle_pane.set_texts(global_variables.get_value('lines'))
+    angle_pane.set_texts(global_variables.get_value('angles'))
 
 
 def refresh_collinear_points_panel():
