@@ -24,7 +24,3 @@ cd scripts
 python main.py
 ```
 **[Read the documentation to know how to use this app!](http://geometry-app.rtfd.io/)**
-## Feel free to reach me at:
-[![Email logo](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white): bjothinphysics@gmail.com](mailto:bjothinphysics@gmail.com)  
-![Discord logo](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white): @jothin-kumar#1075  
-[![Facebook logo](https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white): @bjothin](https://www.facebook.com/bjothin)
