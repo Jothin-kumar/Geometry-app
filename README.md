@@ -1,4 +1,4 @@
-# Geometry app - [B. Jothin kumar](https://jothin-kumar.github.io/)
+# [Geometry app](https://jothin-kumar.github.io/Geometry-app/) - [B. Jothin kumar](https://jothin-kumar.github.io/)
 
 A GUI application to solve geometry problems, Currently in beta stage.
 ## Preview:
