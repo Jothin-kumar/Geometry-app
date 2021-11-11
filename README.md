@@ -24,3 +24,7 @@ cd scripts
 python main.py
 ```
 **[Read the documentation to know how to use this app!](http://geometry-app.rtfd.io/)**
+
+My other interesting projects:
+ - https://github.com/Jothin-kumar/lines-of-code/
+ - https://github.com/Jothin-kumar/time-widget/
