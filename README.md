@@ -1,6 +1,6 @@
 # [Geometry app](https://jothin-kumar.github.io/Geometry-app/) - [B. Jothin kumar](https://jothin-kumar.github.io/)
 
-A GUI application to solve geometry problems, Currently in beta stage.
+A GUI application to "draw and get answers!", Currently in beta stage.
 ## Preview:
 ![Screenshot of geometry app](https://raw.githubusercontent.com/Jothin-kumar/Geometry-app/master/geometry%20app-1.png)
 ![Screenshot of geometry app](https://raw.githubusercontent.com/Jothin-kumar/Geometry-app/master/geometry%20app-2.png)
