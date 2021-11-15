@@ -22,6 +22,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Author: Jothin kumar (https://jothin-kumar.github.io/)
 """
 import gui
 from current_mode import switch_to_point_edit, switch_to_line_edit, switch_to_angle_mode, switch_to_collinear_points_mode, switch_to_parallel_lines_mode
