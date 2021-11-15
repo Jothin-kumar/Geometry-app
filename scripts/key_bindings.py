@@ -24,6 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Author: Jothin kumar (https://jothin-kumar.github.io/)
+Github repository of this project: https://github.com/Jothin-kumar/Geometry-app
 """
 import gui
 from current_mode import switch_to_point_edit, switch_to_line_edit, switch_to_angle_mode, switch_to_collinear_points_mode, switch_to_parallel_lines_mode
