@@ -4,7 +4,7 @@ A GUI application to "draw and get answers!", Currently in beta stage.
 ## Preview:
 ![Screenshot of geometry app](https://raw.githubusercontent.com/Jothin-kumar/Geometry-app/master/geometry%20app-1.png)
 ![Screenshot of geometry app](https://raw.githubusercontent.com/Jothin-kumar/Geometry-app/master/geometry%20app-2.png)
-![Project views](https://visitor-badge.glitch.me/badge?page_id=Jothin-kumar.Geometry-app)  
+
 ## To run geometry app:
 ### Linux:
 ```
