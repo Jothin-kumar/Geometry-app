@@ -27,6 +27,4 @@ python main.py
 
 ## My other interesting projects:
  - https://github.com/Jothin-kumar/lines-of-code/
- - https://github.com/Jothin-kumar/time-widget/  
-
-**[Hire me on Fiverr](https://www.fiverr.com/jothin_kumar)**
+ - https://github.com/Jothin-kumar/time-widget/
